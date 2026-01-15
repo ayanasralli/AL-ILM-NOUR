@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendrier - AL ILM NOUR</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ================= CALENDRIER ================= */
+    .calendar {
+      max-width: 900px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      padding: 20px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-header h2 {
+      color: #2563eb;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background: #2563eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .day-name, .day {
+      background: #f1f5f9;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .day-name {
+      font-weight: 600;
+      background: #2563eb;
+      color: white;
+    }
+
+    .day {
+      min-height: 80px;
+      position: relative;
+      cursor: default;
+      font-size: 0.9rem;
+    }
+
+    .day span.date-number {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .event {
+      display: block;
+      font-size: 0.8rem;
+      background: #3b82f6;
+      color: white;
+      padding: 2px 4px;
+      border-radius: 6px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 768px) {
+      .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+      }
+      .day {
+        min-height: 60px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <span>AL ILM NOUR</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#formations">Formations</a>
+        <a href="calendrier.html">Calendrier</a>
+        <a href="index.html#contact">S’inscrire</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Calendrier des événements</h1>
+      <p>Consultez les prochains cours et ateliers de notre centre.</p>
+    </div>
+  </section>
+
+  <!-- Calendrier -->
+  <section class="section gray">
+    <div class="calendar">
+      <div class="calendar-header">
+        <button id="prevMonth">&lt;</button>
+        <h2 id="monthYear"></h2>
+        <button id="nextMonth">&gt;</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- Les jours seront ajoutés par JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 AL ILM NOUR. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const events = [
+      { date: '2026-01-10', title: 'Atelier Arabe - Débutant 10h-12h' },
+      { date: '2026-01-15', title: 'Cours Coran - Avancé 14h-16h' },
+      { date: '2026-01-20', title: 'Atelier Tajwid - Intermédiaire 09h-11h' },
+    ];
+
+    const calendarGrid = document.getElementById('calendarGrid');
+    const monthYear = document.getElementById('monthYear');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+
+    let today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+
+    const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+      "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+    const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+
+    function renderCalendar(month, year) {
+      monthYear.textContent = `${monthNames[month]} ${year}`;
+      calendarGrid.innerHTML = '';
+
+      // Affiche les noms des jours
+      dayNames.forEach(day => {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'day-name';
+        dayEl.textContent = day;
+        calendarGrid.appendChild(dayEl);
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      // Cases vides avant le premier jour
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'day';
+        calendarGrid.appendChild(empty);
+      }
+
+      // Jours du mois
+      for (let day = 1; day <= lastDate; day++) {
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const dayEl = document.createElement('div');
+        dayEl.className = 'day';
+        dayEl.innerHTML = `<span class="date-number">${day}</span>`;
+
+        // Ajouter les événements
+        events.forEach(ev => {
+          if (ev.date === dateStr) {
+            const eventEl = document.createElement('span');
+            eventEl.className = 'event';
+            eventEl.textContent = ev.title;
+            dayEl.appendChild(eventEl);
+          }
+        });
+
+        calendarGrid.appendChild(dayEl);
+      }
+    }
+
+    renderCalendar(currentMonth, currentYear);
+
+    prevMonthBtn.addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderCalendar(currentMonth, currentYear);
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar(currentMonth, currentYear);
+    });
+  </script>
+
+</body>
+</html>
