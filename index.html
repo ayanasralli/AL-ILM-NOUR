@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centre d'Éducation en Ligne</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <span>AL-ILM NOUR</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">À propos</a>
+        <a href="#courses">Formations</a>
+        <a href="calendrier.html">Calendrier</a>
+        <a href="#contact">S'inscrire</a>
+      </div>
+      <div class="burger" id="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Bienvenue sur notre centre <br>d'éducation en ligne</h1>
+      <p>Apprenez le Coran et l'arabe de façon interactive et moderne.</p>
+      <a href="#courses" class="btn-primary">Découvrir nos formations</a>
+    </div>
+  </header>
+
+  <!-- ================= À PROPOS ================= -->
+  <section id="about" class="section">
+    <h2>À propos</h2>
+    <p class="section-text"> Bienvenue sur notre centre d'éducation en ligne.<br> 
+      Nous proposons des cours adaptés à tous les niveaux 
+      et tous les âges avec un suivi personnalisé pour chaque apprenant. 
+      Notre objectif est de rendre l'apprentissage de l'arabe et du Coran accessible, moderne et interactif. 
+      Que vous soyez débutant, parent souhaitant initier vos enfants
+      ou étudiant désirant approfondir vos connaissances
+      nous avons des programmes conçus spécialement pour vous. 
+      Nos enseignants qualifiés vous guideront à chaque étape 
+      et vous pourrez apprendre à votre rythme depuis chez vous. 
+      Rejoignez-nous pour découvrir une méthode d’apprentissage efficace, ludique et engageante. </p>
+  </section>
+
+  <!-- ================= NOS FORMATIONS ================= -->
+  <section id="courses" class="section gray">
+    <h2>Nos Formations</h2>
+    <div class="cards">
+      <a href="formation1.html" class="card-link">
+        <div class="card">
+          <h3>Formation Nour Al-bayan</h3>
+          <p>Lecture de l'arabe et du Coran.</p>
+        </div>
+      </a>
+      <a href="formation2.html" class="card-link">
+        <div class="card">
+          <h3>Formation Touhfatou Al-atfel</h3>
+          <p>Poème et règles de Tajwid.</p>
+        </div>
+      </a>
+      <a href="cours.html" class="card-link">
+        <div class="card">
+          <h3>Cours général</h3>
+          <p>Coran / Arabe / Nouraniya</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <form class="form">
+      <input type="text" id="name" placeholder="Nom et Prénom" required>
+      <input type="text" id="course" placeholder="Cours souhaité" required>
+      <input type="text" id="contact" placeholder="Email ou numéro WhatsApp" required>
+      <textarea id="message" placeholder="Votre message" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <p>Email : <a style="color:white;">al.ilm.nour2a@gmail.com</a></p>
+    <p>WhatsApp : <a target="_blank" style="color:white;">+216 52 051 415</a></p>
+    <p>&copy; 2026 AL ILM NOUR. Tous droits réservés.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
